@@ -5,32 +5,44 @@ import com.sparta.group3.northwindtask.northwindtask.repos.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.List;
 
 @RestController
 public class CustomerController {
     @Autowired
-    CustomerRepository repo;
+    CustomerRepository customerRepo;
+
+    @Autowired
+    OrderRepository orderRepo;
 
     @GetMapping("/customers")
     public List<Customer> getAllCustomers(){
-        return repo.findAll();
+        return customerRepo.findAll();
     }
 
     @GetMapping("/customers/{id}")
     public Customer getCustomerById(@PathVariable String id){
-        return repo.findById(id).get();
+        return customerRepo.findById(id).get();
     }
     @DeleteMapping("/customers/delete/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void deleteCustomerById(@PathVariable String id){
-        Customer target = repo.findById(id).get();
-        repo.delete(target);
+    public void deleteCustomerById(@PathVariable String id){ // FIXME broken af
+        Customer target = customerRepo.findById(id).get();
+
+        orderRepo.deleteAllByCustomerID(id);
+        customerRepo.delete(target);
     }
-    @PostMapping ("/customers/new")
+    @DeleteMapping("/customers/delete2/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void addCustomer(@RequestBody Customer customer){
-        repo.save(customer);
+    public void deleteCustomerById2(@PathVariable String id){ // FIXME broken af
+        Customer customer = customerRepo.findById(id).get();
+        orderRepo.deleteAllByCustomerID(customer.getId());
+        customerRepo.deleteByIdWithJPQL(customer.getId());
     }
+    /*
+        Cannot delete or update a parent row: a foreign key constraint fails
+        (`northwind`.`orders`, CONSTRAINT `FK_Orders_Customers` FOREIGN KEY (`CustomerID`) REFERENCES `customers` (`CustomerID`))
+     */
 }
