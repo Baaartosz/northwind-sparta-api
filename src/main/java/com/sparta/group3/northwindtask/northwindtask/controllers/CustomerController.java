@@ -106,7 +106,7 @@ public class CustomerController {
 
     @DeleteMapping("/customers/delete/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void deleteCustomerById(@PathVariable String id){
+    public void deleteCustomerById(@PathVariable String id){ // FIXME broken af
         customerRepo.delete(customerRepo.getReferenceById(id));
     }
 }
