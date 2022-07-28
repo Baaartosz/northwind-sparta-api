@@ -6,6 +6,8 @@ import com.sparta.group3.northwindtask.northwindtask.entities.Employee;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "orders")
@@ -54,8 +56,11 @@ public class Order {
     private String shipCountry;
 
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name = "CustomerID", insertable = false, updatable = false)
     private Customer customer;
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<OrderDetail> orderDetails = new ArrayList<>();
 
     public Integer getId() {
         return id;

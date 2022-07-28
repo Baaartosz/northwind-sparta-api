@@ -1,9 +1,6 @@
 package com.sparta.group3.northwindtask.northwindtask.entities;
 
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
@@ -20,6 +17,10 @@ public class OrderDetail {
 
     @Column(name = "Discount", nullable = false)
     private Double discount;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "OrderID", insertable = false, updatable = false)
+    private Order order;
 
     public OrderDetailId getId() {
         return id;
