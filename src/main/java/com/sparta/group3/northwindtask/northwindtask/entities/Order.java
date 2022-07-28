@@ -53,6 +53,10 @@ public class Order {
     @Column(name = "ShipCountry", length = 15)
     private String shipCountry;
 
+    @ManyToOne
+    @JoinColumn
+    private Customer customer;
+
     public Integer getId() {
         return id;
     }

@@ -22,7 +22,7 @@ public class CustomerController {
         return customerRepo.findAll();
     }
 
-    @GetMapping("/customers/{id}")
+    @GetMapping("/customers/id/{id}")
     public Customer getCustomerById(@PathVariable String id){
         return customerRepo.findById(id).get();
     }
