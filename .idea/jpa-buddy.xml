@@ -3,6 +3,6 @@
   <component name="JpaBuddyIdeaProjectConfig">
     <option name="defaultUnitInitialized" value="true" />
     <option name="reverseEngineeringLastDbConnectionId" value="ca7c9e06-cbe0-49a5-9ff0-d7365ea417d4" />
-    <option name="reLastEntityCreationPackage" value="src/main/java/com/sparta/jeffrey/northwindtask/northwindtask" />
+    <option name="reLastEntityCreationPackage" value="src/main/java/com/sparta/group3/northwindtask/northwindtask" />
   </component>
 </project>
