@@ -11,7 +11,7 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
 
     void deleteAllByCustomerID(String id);
 
-    @Modifying
-    @Query("DELETE FROM Order c WHERE c.customer.id = ?1")
-    void deleteByCustomerId(String customerId);
+//    @Modifying
+//    @Query("DELETE FROM Order c WHERE c.customer.id = ?1")
+//    void deleteByCustomerId(String customerId);
 }
