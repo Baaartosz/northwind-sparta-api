@@ -1,6 +1,8 @@
 package com.sparta.group3.northwindtask.northwindtask.entities;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -39,6 +41,9 @@ public class Customer {
 
     @Column(name = "Fax", length = 24)
     private String fax;
+
+    @OneToMany(mappedBy = "customer",cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Order> orders = new ArrayList<>();
 
     public String getId() {
         return id;
