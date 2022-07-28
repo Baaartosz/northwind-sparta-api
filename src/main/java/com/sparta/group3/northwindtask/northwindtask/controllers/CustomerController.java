@@ -106,21 +106,7 @@ public class CustomerController {
 
     @DeleteMapping("/customers/delete/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void deleteCustomerById(@PathVariable String id){ // FIXME broken af
-        Customer target = customerRepo.findById(id).get();
-
-        orderRepo.deleteAllByCustomerID(id);
-        customerRepo.delete(target);
+    public void deleteCustomerById(@PathVariable String id){
+        customerRepo.delete(customerRepo.getReferenceById(id));
     }
-    @DeleteMapping("/customers/delete2/{id}")
-    @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void deleteCustomerById2(@PathVariable String id){ // FIXME broken af
-        Customer customer = customerRepo.findById(id).get();
-        orderRepo.deleteAllByCustomerID(customer.getId());
-        customerRepo.deleteByIdWithJPQL(customer.getId());
-    }
-    /*
-        Cannot delete or update a parent row: a foreign key constraint fails
-        (`northwind`.`orders`, CONSTRAINT `FK_Orders_Customers` FOREIGN KEY (`CustomerID`) REFERENCES `customers` (`CustomerID`))
-     */
 }
