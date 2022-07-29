@@ -1,4 +1,9 @@
-# northwind-sparta-api
+# Northwind-sparta-api
+## A mini-project to practice development of API's
+#### contributors
+Jeffrey Champion - Scrum master
+Bartosz Perc
+
 
 application.properties
 ```ini
