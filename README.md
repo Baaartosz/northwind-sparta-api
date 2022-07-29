@@ -49,8 +49,7 @@ All members of the group worked on one client such that we could implement all m
 These were all smoothly created bar one.
 
 #### 1.1 The first blocker
-
-Bart, who had been working on the DELETE function found that the program would not allow a deletion of a customer.
+#Bart, who had been working on the DELETE function found that the program would not allow a deletion of a customer.
 This problem was resolved by writing the mapping for customer to all the orders they relate to. This cleared our blocker.
 -----------------
 ### Sprint 2 - Creating a test framework
