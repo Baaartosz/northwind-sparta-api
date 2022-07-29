@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 @Entity
 @Table(name = "`order details`")
 public class OrderDetail {
+
     @EmbeddedId
     private OrderDetailId id;
 
