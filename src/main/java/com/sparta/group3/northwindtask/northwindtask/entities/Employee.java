@@ -1,8 +1,11 @@
 package com.sparta.group3.northwindtask.northwindtask.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.time.Instant;
 
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
 @Entity
 @Table(name = "employees")
 public class Employee {
