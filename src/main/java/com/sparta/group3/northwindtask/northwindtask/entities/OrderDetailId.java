@@ -16,7 +16,7 @@ public class OrderDetailId implements Serializable {
     @Column(name = "ProductID", nullable = false)
     private Integer productID;
 
-    public Integer getOrderID() {
+    public int getOrderID() {
         return orderID;
     }
 

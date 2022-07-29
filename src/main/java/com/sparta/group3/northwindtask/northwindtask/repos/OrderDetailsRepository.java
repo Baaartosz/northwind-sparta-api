@@ -1,12 +1,13 @@
 package com.sparta.group3.northwindtask.northwindtask.repos;
 
 import com.sparta.group3.northwindtask.northwindtask.entities.OrderDetail;
+import com.sparta.group3.northwindtask.northwindtask.entities.OrderDetailId;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface OrderDetailsRepository extends JpaRepository<OrderDetail, String> {
 
     OrderDetail findOrderDetailsByOrderID(String id);
@@ -14,9 +15,4 @@ public interface OrderDetailsRepository extends JpaRepository<OrderDetail, Strin
     List<OrderDetail> findOrderDetailsByUnitPrice(String id);
     List<OrderDetail> findOrderDetailsByQuantity(String id);
     List<OrderDetail> findOrderDetailsByDiscount(String id);
-
-    @Modifying
-    @Query("DELETE FROM OrderDetail c WHERE c.id = ?1")
-    void deleteByIdWithJPQL(String id);
-
 }
