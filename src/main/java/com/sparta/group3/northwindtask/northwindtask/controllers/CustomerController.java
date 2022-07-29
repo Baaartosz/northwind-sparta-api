@@ -58,7 +58,6 @@ public class CustomerController {
         else{
             customerRepo.save(customer);
         }
-        return;
     }
 
     @PatchMapping("/customers/patch")

@@ -133,4 +133,22 @@ public class Customer {
         this.fax = fax;
     }
 
+    @Override
+    public String toString() {
+        return "Customer{" +
+               "id='" + id + '\'' +
+               ", companyName='" + companyName + '\'' +
+               ", contactName='" + contactName + '\'' +
+               ", contactTitle='" + contactTitle + '\'' +
+               ", address='" + address + '\'' +
+               ", city='" + city + '\'' +
+               ", region='" + region + '\'' +
+               ", postalCode='" + postalCode + '\'' +
+               ", country='" + country + '\'' +
+               ", phone='" + phone + '\'' +
+               ", fax='" + fax + '\'' +
+               ", orders=" + orders +
+               '}';
+    }
+
 }
