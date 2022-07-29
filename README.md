@@ -89,6 +89,10 @@ as they are both faced with this issue.
 ## Outcome
 
 The program has 3 Fully functional tables, customer, employee and orders, while products and order details are created, but are held back by these keys.
+We also found that the testing for these two other tables hit errors when they got to POST tests so the testing is visible, but commented out on these as well
+
+In retrospect, the assumption that all API's will function similarly is not entirely true, and trying to get to the root of problems in an API is a lot harder
+that in other interactions
 
 
 
