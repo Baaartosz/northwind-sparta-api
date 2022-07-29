@@ -2,18 +2,13 @@ package com.sparta.group3.northwindtask.northwindtask.ordedetails;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sparta.group3.northwindtask.northwindtask.entities.Customer;
-import com.sparta.group3.northwindtask.northwindtask.entities.OrderDetail;
-import com.sparta.group3.northwindtask.northwindtask.repos.CustomerRepository;
 import com.sparta.group3.northwindtask.northwindtask.repos.OrderDetailsRepository;
-import org.aspectj.weaver.ast.Or;
+import com.sparta.group3.northwindtask.northwindtask.entities.OrderDetail;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.client.HttpClientErrorException;
 
 import java.io.IOException;
 import java.net.URI;
@@ -22,7 +17,6 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.HashMap;
-import java.util.Map;
 
 @SpringBootTest()
 public class OrderDetailsTests {

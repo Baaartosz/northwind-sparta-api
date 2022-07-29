@@ -1,7 +1,7 @@
 package com.sparta.group3.northwindtask.northwindtask.controllers;
 
-import com.sparta.group3.northwindtask.northwindtask.entities.OrderDetail;
 import com.sparta.group3.northwindtask.northwindtask.repos.OrderDetailsRepository;
+import com.sparta.group3.northwindtask.northwindtask.entities.OrderDetail;
 import com.sparta.group3.northwindtask.northwindtask.repos.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 public class OrderDetailController {
+
     @Autowired
     OrderDetailsRepository orderDetailsRepository;
 
@@ -51,7 +52,7 @@ public class OrderDetailController {
     @PostMapping("/orderdetails/new")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void addOrderDetails(@RequestBody OrderDetail orderDetail){
-        if (orderDetailsRepository.findById(orderDetail.getId().getOrderID().toString()).isPresent()){
+        if (orderDetailsRepository.findById(orderDetail.getId().toString()).isPresent()){
             throw new HttpClientErrorException(HttpStatus.BAD_REQUEST);
         }
         else{
