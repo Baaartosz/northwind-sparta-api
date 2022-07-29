@@ -31,7 +31,7 @@ public class OrderTests {
 
     private ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
 
-    String serverURL = "http://localhost:8080";
+    String serverURL = "http://localhost";
 
     @Test
     @DisplayName("Get order by ID")
