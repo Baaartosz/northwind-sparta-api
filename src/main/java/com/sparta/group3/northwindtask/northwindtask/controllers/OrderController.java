@@ -49,4 +49,14 @@ public class OrderController {
         return orderRepo.findByShipCountry(shipCountry);
     }
 
+    @PostMapping("/orders/new")
+    public void addOrder(@RequestBody Order order){
+        if (orderRepo.findById(order.getId()).isPresent()){
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST);
+        }
+        else{
+            orderRepo.save(order);
+        }
+    }
+
 }
