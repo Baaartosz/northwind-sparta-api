@@ -61,8 +61,7 @@ public class OrderController {
 
     @PatchMapping("/orders/patch")
     public void patchOrder(@RequestBody Order updatedOrder){
-        Order order = orderRepo.findById(updatedOrder.getId()).get();
-
+        Order order = orderRepo.getReferenceById(updatedOrder.getId());
         if (order != null){
             if(updatedOrder.getCustomerID() != null){
                 order.setCustomerID(updatedOrder.getCustomerID());
@@ -106,6 +105,16 @@ public class OrderController {
             orderRepo.save(order);
         }
 
+    }
+
+    @PutMapping("/orders/update")
+    public void updateOrder(@RequestBody Order updatedOrder){
+        orderRepo.save(updatedOrder);
+    }
+
+    @DeleteMapping("/orders/delete/{id}")
+    public void deleteOrderById(@PathVariable int id){
+        orderRepo.delete(orderRepo.getReferenceById(id));
     }
 
 }
