@@ -180,29 +180,28 @@ public class CustomerTests {
     @DisplayName("Patch test")
     void patchTest() {
         var values = sendBody();
+
         try {
-            String requestBody = mapper.writeValueAsString(values);
-            HttpClient client = HttpClient.newHttpClient();
-            HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(serverURL + "/customers/new")) //CHANGE THE LOCATION TO SEND BODY TO
-                    .header("Content-Type", "application/json")
-                    .POST(HttpRequest.BodyPublishers.ofString(requestBody))
-                    .build();
-
-            client.send(request, HttpResponse.BodyHandlers.ofString());
-
-        } catch (InterruptedException | IOException e) {
+            String json = mapper.writeValueAsString(values);
+            customerRepository.save(mapper.readValue(json, Customer.class));
+        } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
+
+        values.replace("country", "Iceland");
+        System.out.println(values.toString());
+
         try {
-            values.put("country", "Iceland");
+
             String requestBody = mapper.writeValueAsString(values);
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(serverURL + "/customers/update"))
+                    .header("Content-Type", "application/json") // FIXME this was missing
                     .PUT(HttpRequest.BodyPublishers.ofString(requestBody))
                     .build();
             client.send(request, HttpResponse.BodyHandlers.ofString());
+
             Customer customer = customerRepository.findById("AAAAA").get();
             Assertions.assertEquals("Iceland", customer.getCountry());
 
@@ -270,16 +269,12 @@ public class CustomerTests {
         if (customerRepository.existsById("AAAAA")) {
             customerRepository.deleteById("AAAAA");
         }
-        // If AAAAA doesn't exist it should create it
+//        // If AAAAA doesn't exist it should create it
+
         try {
-            String requestBody = mapper.writeValueAsString(sendBody());
-            HttpClient client = HttpClient.newHttpClient();
-            HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(serverURL + "/customers/update"))
-                    .PUT(HttpRequest.BodyPublishers.ofString(requestBody))
-                    .build();
-            client.send(request, HttpResponse.BodyHandlers.ofString());
-        } catch (IOException | InterruptedException e) {
+            String json = mapper.writeValueAsString(sendBody());
+            customerRepository.save(mapper.readValue(json, Customer.class));
+        } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
 
@@ -298,11 +293,13 @@ public class CustomerTests {
             put("phone", "089-0877310");
             put("fax", "089-0877451");
         }};
+
         try{
             String requestBody = mapper.writeValueAsString(values);
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(serverURL + "/customers/update"))
+                    .header("Content-Type", "application/json") // FIXME this was missing
                     .PUT(HttpRequest.BodyPublishers.ofString(requestBody))
                     .build();
             client.send(request, HttpResponse.BodyHandlers.ofString());
@@ -342,7 +339,7 @@ public class CustomerTests {
         }
     }
 
-    public Map sendBody() {
+    public HashMap<String, String> sendBody() {
         var values = new HashMap<String, String>() {{
             put("id", "AAAAA");
             put("companyName", "Frankenversand");
