@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sparta.group3.northwindtask.northwindtask.entities.Customer;
 import com.sparta.group3.northwindtask.northwindtask.entities.OrderDetail;
 import com.sparta.group3.northwindtask.northwindtask.repos.CustomerRepository;
+import com.sparta.group3.northwindtask.northwindtask.repos.OrderDetailsRepository;
+import org.aspectj.weaver.ast.Or;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -26,13 +28,14 @@ import java.util.Map;
 public class OrderDetailsTests {
 
     @Autowired
-    private CustomerRepository customerRepository;
+    private OrderDetailsRepository orderDetailsRepository;
 
     private ObjectMapper mapper = new ObjectMapper();
 
     String serverURL = "http://localhost";
 
     //_________________________________________________________________________GET TESTS________
+
     @Test
     @DisplayName("Get order details by ID")
     void getById() {
@@ -46,14 +49,14 @@ public class OrderDetailsTests {
         }
     }
 
-    @Test // TO DO
+    @Test
     @DisplayName("Get order details product ID")
-    void getContactAddress() {
+    void getProductID() {
         try {
             OrderDetail result = mapper.readValue(
                     new URL(serverURL + "/orderdetails/id/10248"),
                     OrderDetail.class);
-            Assertions.assertEquals("Hauptstr. 29", result.getId().getProductID());
+            Assertions.assertEquals("11", result.getId().getProductID());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -61,7 +64,7 @@ public class OrderDetailsTests {
 
     @Test
     @DisplayName("Get order details unit price")
-    void getCompanyName() {
+    void getUnitPrice() {
         try {
             OrderDetail result = mapper.readValue(
                     new URL(serverURL + "/orderdetails/id/10248"),
@@ -74,7 +77,7 @@ public class OrderDetailsTests {
 
     @Test
     @DisplayName("Get order details quantity")
-    void getContactName() {
+    void getQuantity() {
         try {
             OrderDetail result = mapper.readValue(
                     new URL(serverURL + "/orderdetails/id/10248"),
@@ -87,7 +90,7 @@ public class OrderDetailsTests {
 
     @Test
     @DisplayName("Get order details discount")
-    void getContactTitle() {
+    void getDiscount() {
         try {
             OrderDetail result = mapper.readValue(
                     new URL(serverURL + "/orderdetails/id/10248"),
@@ -107,27 +110,27 @@ public class OrderDetailsTests {
 
         try {
             String json = mapper.writeValueAsString(values);
-            customerRepository.save(mapper.readValue(json, Customer.class));
+            orderDetailsRepository.save(mapper.readValue(json, OrderDetail.class));
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
 
-        values.replace("country", "Iceland");
-        System.out.println(values.toString());
+        values.replace("discount", "24");
+        System.out.println(values);
 
         try {
 
             String requestBody = mapper.writeValueAsString(values);
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(serverURL + "/customers/update"))
-                    .header("Content-Type", "application/json") // FIXME this was missing
+                    .uri(URI.create(serverURL + "/orderdetails/update"))
+                    .header("Content-Type", "application/json")
                     .PUT(HttpRequest.BodyPublishers.ofString(requestBody))
                     .build();
             client.send(request, HttpResponse.BodyHandlers.ofString());
 
-            Customer customer = customerRepository.findById("AAAAA").get();
-            Assertions.assertEquals("Iceland", customer.getCountry());
+            OrderDetail orderDetail = orderDetailsRepository.findById("99999").get();
+            Assertions.assertEquals("24", orderDetail.getDiscount());
 
         } catch (RuntimeException | InterruptedException | IOException e) {
             throw new RuntimeException(e);
@@ -136,33 +139,20 @@ public class OrderDetailsTests {
 
     //_____________________________________________________________________________POST TESTS______________
     @Test
-    @DisplayName("Add customer")
-    void addCustomer() {
-        if (customerRepository.existsById("AAAAA")) {
-            customerRepository.deleteById("AAAAA");
+    @DisplayName("Add Order Details")
+    void addOrderDetails() {
+        if (orderDetailsRepository.existsById("99999")) {
+            orderDetailsRepository.deleteById("99999");
         }
 
         //______________________________________BODY MAKER_________________
         var values = sendBody();
-        /*var values = new HashMap<String, String>() {{
-            put("id", "AAAAA");
-            put("companyName", "Frankenversand");
-            put("contactName", "Peter Franken");
-            put("contactTitle", "Marketing Manager");
-            put("address", "Berliner Platz 43");
-            put("city", "Mnchen");
-            put("region", null);
-            put("postalCode", "80805");
-            put("country", "Germany");
-            put("phone", "089-0877310");
-            put("fax", "089-0877451");
-        }};*/
 
         try {
             String requestBody = mapper.writeValueAsString(values);
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(serverURL + "/customers/new")) //CHANGE THE LOCATION TO SEND BODY TO
+                    .uri(URI.create(serverURL + "/orderdetails/new")) //CHANGE THE LOCATION TO SEND BODY TO
                     .header("Content-Type", "application/json")
                     .POST(HttpRequest.BodyPublishers.ofString(requestBody))
                     .build();
@@ -173,56 +163,40 @@ public class OrderDetailsTests {
             throw new RuntimeException(e);
         }
         //____________________________________END OF BODY MAKER___________________________
-
-//        try {
-//            Customer result = mapper.readValue(
-//                    new URL("http://localhost/customers/id/AAAAA"),
-//                    Customer.class);
-//            Assertions.assertNotEquals(null, result);
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        } // VVVVVVVVVVVVV
-        Assertions.assertNotEquals(null, customerRepository.findById("AAAAA").get());
-        customerRepository.deleteById("AAAAA");
+        Assertions.assertNotEquals(null, orderDetailsRepository.findById("99999").get());
+        orderDetailsRepository.deleteById("99999");
     }
 
     //________________________________________________________________________________PUT TEST____________________
     @Test
-    @DisplayName("Update customer")
-    void updateCustomer() {
-        if (customerRepository.existsById("AAAAA")) {
-            customerRepository.deleteById("AAAAA");
+    @DisplayName("Update Order Details")
+    void updateOrderDetails() {
+        if (orderDetailsRepository.existsById("99999")) {
+            orderDetailsRepository.deleteById("99999");
         }
-//        // If AAAAA doesn't exist it should create it
 
         try {
             String json = mapper.writeValueAsString(sendBody());
-            customerRepository.save(mapper.readValue(json, Customer.class));
+            orderDetailsRepository.save(mapper.readValue(json, OrderDetail.class));
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
 
-        Assertions.assertTrue(customerRepository.findById("AAAAA").isPresent());
+        Assertions.assertTrue(orderDetailsRepository.findById("99999").isPresent());
 
         var values = new HashMap<String, String>() {{
-            put("id", "AAAAA");
-            put("companyName", "A");
-            put("contactName", "A");
-            put("contactTitle", "Marketing Manager");
-            put("address", "Berliner Platz 43");
-            put("city", "Mnchen");
-            put("region", null);
-            put("postalCode", "80805");
-            put("country", "Germany");
-            put("phone", "089-0877310");
-            put("fax", "089-0877451");
+            put("id", "99999");
+            put("productID", "102");
+            put("unitPrice", "103");
+            put("quantity", "104");
+            put("discount", "105");
         }};
 
         try{
             String requestBody = mapper.writeValueAsString(values);
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(serverURL + "/customers/update"))
+                    .uri(URI.create(serverURL + "/orderdetails/update"))
                     .header("Content-Type", "application/json") // FIXME this was missing
                     .PUT(HttpRequest.BodyPublishers.ofString(requestBody))
                     .build();
@@ -231,73 +205,44 @@ public class OrderDetailsTests {
             throw new RuntimeException(e);
         }
 
-        Customer customer = customerRepository.findById("AAAAA").get();
-        Assertions.assertEquals("A", customer.getCompanyName());
+        OrderDetail orderDetail = orderDetailsRepository.findById("99999").get();
+        Assertions.assertEquals("104", orderDetail.getQuantity());
 
-        customerRepository.deleteById("AAAAA");
+        orderDetailsRepository.deleteById("99999");
     }
 
     // _________________________________________________________________________________DELETE TESTS_________
     @Test
     @DisplayName("Delete Customer Check")
-    void deleteCustomerCheck(){
-        if(!customerRepository.existsById("DANK")){
+    void deleteOrderDetailsCheck(){
+        if(!orderDetailsRepository.existsById("99999")){
             try {
-                Customer welovefrank = mapper.readValue("{\"id\":\"DANK\",\"companyName\":\"Frankenversand\",\"contactName\":\"Peter Franken\",\"contactTitle\":\"Marketing Manager\",\"address\":\"Berliner Platz 43\",\"city\":\"Mnchen\",\"region\":null,\"postalCode\":\"80805\",\"country\":\"Russia\",\"phone\":\"089-0877310\",\"fax\":\"089-0877451\"}",Customer.class);
-                customerRepository.save(welovefrank);
+                String json = mapper.writeValueAsString(sendBody());
+                orderDetailsRepository.save(mapper.readValue(json, OrderDetail.class));
             } catch (JsonProcessingException e) {
                 throw new RuntimeException(e);
             }
         }
-
         try{
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create("http://localhost/customers/delete/DANK")).DELETE().build();
+                    .uri(URI.create(serverURL + "/orderdetails/delete/99999")).DELETE().build();
 
-            Assertions.assertTrue(customerRepository.findById("DANK").isPresent());
+            Assertions.assertTrue(orderDetailsRepository.findById("99999").isPresent());
             client.send(request, HttpResponse.BodyHandlers.ofString());
-            Assertions.assertTrue(customerRepository.findById("DANK").isEmpty());
+            Assertions.assertTrue(orderDetailsRepository.findById("99999").isEmpty());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
-
     public HashMap<String, String> sendBody() {
         var values = new HashMap<String, String>() {{
-            put("id", "AAAAA");
-            put("companyName", "Frankenversand");
-            put("contactName", "Peter Franken");
-            put("contactTitle", "Marketing Manager");
-            put("address", "Berliner Platz 43");
-            put("city", "Mnchen");
-            put("region", null);
-            put("postalCode", "80805");
-            put("country", "Germany");
-            put("phone", "089-0877310");
-            put("fax", "089-0877451");
+            put("id", "99999");
+            put("productID", "102");
+            put("unitPrice", "103");
+            put("quantity", "104");
+            put("discount", "105");
         }};
         return values;
     }
-    /*
-        try {
-            String requestBody = mapper.writeValueAsString(values);
-            HttpClient client = HttpClient.newHttpClient();
-            HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(url)) //CHANGE THE URL LOCATION TO SEND BODY TO
-                    .header("Content-Type", "application/json")
-                    .POST(HttpRequest.BodyPublishers.ofString(requestBody)) // CHANGE FROM POST TO SUITABLE
-                    .build();
-
-            client.send(request, HttpResponse.BodyHandlers.ofString());
-        }
-        catch (JsonProcessingException e) {
-        throw new RuntimeException(e);
-    } catch (IOException e) {
-        throw new RuntimeException(e);
-    } catch (InterruptedException e) {
-        throw new RuntimeException(e);
-    }
-
-    }*/
 }
