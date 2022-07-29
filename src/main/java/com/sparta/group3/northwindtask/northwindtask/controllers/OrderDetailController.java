@@ -1,5 +1,6 @@
 package com.sparta.group3.northwindtask.northwindtask.controllers;
 
+import com.sparta.group3.northwindtask.northwindtask.entities.OrderDetailId;
 import com.sparta.group3.northwindtask.northwindtask.repos.OrderDetailsRepository;
 import com.sparta.group3.northwindtask.northwindtask.entities.OrderDetail;
 import com.sparta.group3.northwindtask.northwindtask.repos.OrderRepository;
@@ -29,10 +30,10 @@ public class OrderDetailController {
         return orderDetailsRepository.findById(id).get();
     }
 
-    @GetMapping("/orderdetails/productid/{productid}")
-    public OrderDetail getOrderDetailsByProductID(@PathVariable String productid){
+/*    @GetMapping("/orderdetails/productid/{productid}")
+    public OrderDetailId getOrderDetailsByProductID(@PathVariable String productid){
         return orderDetailsRepository.findOrderDetailsByProductID(productid);
-    }
+    }*/
 
     @GetMapping("/orderdetails/unitprice/{unitprice}")
     public List<OrderDetail> getOrderDetailsByUnitPrice(@PathVariable String unitprice) {

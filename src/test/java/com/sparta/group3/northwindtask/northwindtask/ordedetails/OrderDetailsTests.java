@@ -180,7 +180,6 @@ public class OrderDetailsTests {
 
         var values = new HashMap<String, String>() {{
             put("id", "99999");
-            put("productID", "102");
             put("unitPrice", "103");
             put("quantity", "104");
             put("discount", "105");
@@ -232,7 +231,6 @@ public class OrderDetailsTests {
     public HashMap<String, String> sendBody() {
         var values = new HashMap<String, String>() {{
             put("id", "99999");
-            put("productID", "102");
             put("unitPrice", "103");
             put("quantity", "104");
             put("discount", "105");
