@@ -59,4 +59,53 @@ public class OrderController {
         }
     }
 
+    @PatchMapping("/orders/patch")
+    public void patchOrder(@RequestBody Order updatedOrder){
+        Order order = orderRepo.findById(updatedOrder.getId()).get();
+
+        if (order != null){
+            if(updatedOrder.getCustomerID() != null){
+                order.setCustomerID(updatedOrder.getCustomerID());
+            }
+            if(updatedOrder.getEmployeeID() != null){
+                order.setEmployeeID(updatedOrder.getEmployeeID());
+            }
+            if(updatedOrder.getOrderDate() != null){
+                order.setOrderDate(updatedOrder.getOrderDate());
+            }
+            if(updatedOrder.getRequiredDate() != null){
+                order.setRequiredDate(updatedOrder.getRequiredDate());
+            }
+            if(updatedOrder.getShippedDate() != null){
+                order.setShippedDate(updatedOrder.getShippedDate());
+            }
+            if(updatedOrder.getShipVia() != null){
+                order.setShipVia(updatedOrder.getShipVia());
+            }
+            if(updatedOrder.getFreight() != null){
+                order.setFreight(updatedOrder.getFreight());
+            }
+            if(updatedOrder.getShipName() != null){
+                order.setShipName(updatedOrder.getShipName());
+            }
+            if(updatedOrder.getShipAddress() != null){
+                order.setShipAddress(updatedOrder.getShipAddress());
+            }
+            if(updatedOrder.getShipCity() != null){
+                order.setShipCity(updatedOrder.getShipCity());
+            }
+            if(updatedOrder.getShipRegion() != null){
+                order.setShipRegion(updatedOrder.getShipRegion());
+            }
+            if(updatedOrder.getShipPostalCode() != null){
+                order.setShipPostalCode(updatedOrder.getShipPostalCode());
+            }
+            if(updatedOrder.getShipCountry() != null){
+                order.setShipCountry(updatedOrder.getShipCountry());
+            }
+            orderRepo.save(order);
+        }
+
+    }
+
 }
