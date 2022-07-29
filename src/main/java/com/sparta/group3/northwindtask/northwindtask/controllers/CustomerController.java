@@ -45,9 +45,41 @@ public class CustomerController {
         return customerRepo.findByCompanyName(companyName);
     }
 
-//    @GetMapping("/customers/{Address}")
-//    public
+   @GetMapping("/customers/address/{address}")
+    public Customer getCustomerByAddress(@PathVariable String address)
+   {
+       return customerRepo.findByAddress(address);
+   }
 
+   @GetMapping("/customers/city/{city}")
+   public List<Customer> getCustomerByCity(@PathVariable String city)
+   {
+       return customerRepo.findByCity(city);
+   }
+
+   @GetMapping("/customers/region/{region}")
+   public List<Customer> getCustomerByRegion(@PathVariable String region)
+   {
+       return customerRepo.findByRegion(region);
+   }
+
+   @GetMapping("/customers/postalCode/{postalCode}")
+   public Customer getCustomerByPostalCode(@PathVariable String postalCode)
+   {
+       return customerRepo.findByPostalCode(postalCode);
+   }
+
+   @GetMapping("customers/phone/{phone}")
+   public Customer getCustomerByPhone(@PathVariable String phone)
+   {
+       return customerRepo.findByPhone(phone);
+   }
+
+   @GetMapping("customers/fax/{fax}")
+   public Customer getCustomerByFax(@PathVariable String fax)
+   {
+       return customerRepo.findByFax(fax);
+   }
 
     @PostMapping ("/customers/new")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)

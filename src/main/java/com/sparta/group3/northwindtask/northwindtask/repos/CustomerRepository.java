@@ -11,10 +11,19 @@ public interface CustomerRepository extends JpaRepository<Customer, String> {
     List<Customer> findByCompanyName(String companyName);
     Customer findByContactName(String contactName);
     List<Customer> findByContactTitle(String contactTitle);
-
+    Customer findByAddress(String address);
+    List<Customer> findByCity(String city);
+    List<Customer> findByRegion(String region);
+    Customer findByPostalCode(String postalCode);
+    Customer findByPhone(String phone);
+    Customer findByFax(String fax);
     @Modifying
     @Query("DELETE FROM Customer c WHERE c.id = ?1")
     void deleteByIdWithJPQL(String id);
+
+
+
+
     //https://stackoverflow.com/a/64284372
     //https://www.baeldung.com/jpa-transaction-required-exception
 }
