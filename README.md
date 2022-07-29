@@ -41,6 +41,7 @@ When approaching this task, we had some experience dabbling with API's so found 
 the CRUD operations to perform, and the code associated with them 
 are near copies over different tables.
 Bearing this in mind, the task was split into three sprints
+
 --------------------
 ### Sprint 1 - Customer Controller
 
@@ -49,8 +50,9 @@ All members of the group worked on one client such that we could implement all m
 These were all smoothly created bar one.
 
 #### 1.1 The first blocker
-#Bart, who had been working on the DELETE function found that the program would not allow a deletion of a customer.
+Bart, who had been working on the DELETE function found that the program would not allow a deletion of a customer.
 This problem was resolved by writing the mapping for customer to all the orders they relate to. This cleared our blocker.
+
 -----------------
 ### Sprint 2 - Creating a test framework
 
@@ -63,6 +65,7 @@ This was our second blocker. It extended beyond POST to PATCH PUT and DELETE. Wi
 a body to send to the API we had no way to test that the functions worked. Luckily we were able to consult with our
 trainer. Through collaboration, we found the ability to create a HTTPClient and HTTPBuilder, using a string of JSON code.
 With this format we were able to create an object relating to any data in a table. Because of this, all methods were successfuly tested
+
 ---------------
 ### Sprint 3 - Transition to other tables
 
@@ -82,6 +85,7 @@ However, OrderDetails has a primary key made of two parts an orderID and a produ
 there was an object called "OrderDetailID id" this object itself was not happy to be passed into a FindById, probably because it had two parts it could look for.
 No matter what we tried we could not get the keys to return something useful, ultimately due to time constraints we have had to comment out two tables
 as they are both faced with this issue.
+
 -------
 ### Outcome
 
