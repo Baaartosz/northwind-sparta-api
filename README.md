@@ -2,16 +2,15 @@
 ## A mini-project to practice development of API's
 #### contributors
 
-Jeffrey Champion - Scrum maste
-[JChampion42](https://github.com/Jchampion42) 
-Bartosz Perczynski - git guru
-[Baaartosz](https://github.com/Baaartosz)
-David Carew
-[0V3RL0AD](https://github.com/0V3RL0AD)
-Omar Tehami
-[OTDZ](https://github.com/OTDZ)
-Toby Gascoigne
-[tobygascoigne](https://github.com/tobygascoigne)
+Jeffrey Champion - Scrum master: [JChampion42](https://github.com/Jchampion42) 
+
+Bartosz Perczynski - git guru : [Baaartosz](https://github.com/Baaartosz)
+
+David Carew : [0V3RL0AD](https://github.com/0V3RL0AD)
+
+Omar Tehami : [OTDZ](https://github.com/OTDZ)
+
+Toby Gascoigne : [tobygascoigne](https://github.com/tobygascoigne)
 
 ## Task
 
