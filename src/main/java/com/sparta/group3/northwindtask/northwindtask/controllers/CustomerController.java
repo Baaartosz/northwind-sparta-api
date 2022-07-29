@@ -29,9 +29,9 @@ public class CustomerController {
         return customerRepo.findById(id).get();
     }
 
-    @GetMapping("/customers/contactname/{contactName}") // FIXME does not find by name
-    public Customer getCustomerByName(@PathVariable String name){
-        return customerRepo.findByContactName(name);
+    @GetMapping("/customers/contactname/{contactName}")
+    public Customer getCustomerByName(@PathVariable String contactName){
+        return customerRepo.findByContactName(contactName);
     }
 
     @GetMapping("/customers/contacttitle/{contactTitle}")
