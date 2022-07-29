@@ -34,6 +34,9 @@ public class Order {
     @Column(name = "ShippedDate")
     private Instant shippedDate;
 
+    @Column(name="ShipVia")
+    private Integer shipVia;
+
     @Column(name = "Freight", precision = 10, scale = 4)
     private BigDecimal freight;
 
@@ -108,6 +111,14 @@ public class Order {
 
     public void setShippedDate(Instant shippedDate) {
         this.shippedDate = shippedDate;
+    }
+
+    public Integer getShipVia() {
+        return shipVia;
+    }
+
+    public void setShipVia(Integer shipVia) {
+        this.shipVia = shipVia;
     }
 
     public BigDecimal getFreight() {
