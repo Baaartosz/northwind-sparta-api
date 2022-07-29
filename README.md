@@ -86,7 +86,7 @@ No matter what we tried we could not get the keys to return something useful, ul
 as they are both faced with this issue.
 
 -------
-### Outcome
+## Outcome
 
 The program has 3 Fully functional tables, customer, employee and orders, while products and order details are created, but are held back by these keys.
 
