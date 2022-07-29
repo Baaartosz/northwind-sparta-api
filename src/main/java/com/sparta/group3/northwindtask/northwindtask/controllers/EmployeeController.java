@@ -10,6 +10,7 @@ import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.List;
 
+@RestController
 public class EmployeeController {
     @Autowired
     EmployeeRepository employeeRepo;
@@ -81,17 +82,17 @@ public class EmployeeController {
         return employeeRepo.findByCountry(country);
     }
 
-    @GetMapping("Employees/HomePhone/{homePhone}")
-    public Employee getEmployeeByHomePhone(@PathVariable String homePhone)
-    {
-        return employeeRepo.findByPhone(homePhone);
-    }
-
-    @GetMapping("Employees/Extension/{extension}")
-    public Employee getEmployeeByFax(@PathVariable String extension)
-    {
-        return employeeRepo.findByExtension(extension);
-    }
+//    @GetMapping("Employees/HomePhone/{homePhone}")
+//    public Employee getEmployeeByHomePhone(@PathVariable String homePhone)
+//    {
+//        return employeeRepo.findByPhone(homePhone);
+//    }
+//
+//    @GetMapping("Employees/Extension/{extension}")
+//    public Employee getEmployeeByFax(@PathVariable String extension)
+//    {
+//        return employeeRepo.findByExtension(extension);
+//    }
 
     @PostMapping("/Employees/new")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)

@@ -26,9 +26,9 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 
     Employee findByPostalCode(String postalCode);
 
-    Employee findByPhone(String homePhone);
+    //Employee findByPhone(String homePhone);
 
     List<Employee> findByCountry(String country);
 
-    Employee findByExtension(String extension);
+    //Employee findByExtension(String extension);
 }
