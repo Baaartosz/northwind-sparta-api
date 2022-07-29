@@ -53,7 +53,7 @@ public class OrderDetailsTests {
             OrderDetail result = mapper.readValue(
                     new URL(serverURL + "/orderdetails/id/10248"),
                     OrderDetail.class);
-            Assertions.assertEquals("Hauptstr. 29", result.getId());
+            Assertions.assertEquals("Hauptstr. 29", result.getId().getProductID());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
